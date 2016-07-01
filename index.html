@@ -59,6 +59,7 @@ function doCommand(cmd) {
             output2("Coming soon");
         }
         else if (urls[tokens[1]] !== undefined) {
+            output2("Launching...");
             location.href = urls[tokens[1]];
         }
         else {
@@ -106,12 +107,12 @@ $&gt; cat README.txt
 This website will be available soon
 
 $&gt; ls
-<span id='ls'><span style="color:silver"><span onclick="doCommandClick('cat about.txt');" style="cursor:pointer">about.txt</span>      <span style="color:aqua; cursor:pointer" onclick="doCommandClick('./hackathon.sh');">hackathon.sh</span>   <span style="color:aqua; cursor:pointer" onclick='doCommandClick("./meetup.sh")'>meetups.sh</span>     <span style="cursor:pointer" onclick="doCommandClick('cat contact.txt')">contact.txt</span></span>
+<span id='ls'><span style="color:silver"><span onclick="doCommandClick('cat about.txt');" style="cursor:pointer">about.txt</span>      <span style="color:aqua; cursor:pointer" onclick="doCommandClick('./hackathon.sh');">hackathon.sh</span>   <span style="color:aqua; cursor:pointer" onclick='doCommandClick("./meetups.sh")'>meetups.sh</span>     <span style="cursor:pointer" onclick="doCommandClick('cat contact.txt')">contact.txt</span></span>
 <span style="color:silver"><span style="cursor:pointer" onclick="doCommandClick('cat README.txt')">README.txt</span>     <span style="cursor:pointer" onclick="doCommandClick('cat jobs.txt')">jobs.txt</span>       <span style="cursor:pointer;color:aqua" onclick="doCommandClick('./slack.sh')">slack.sh</span></span>       <span style="cursor: pointer; color:aqua" onclick="doCommandClick('./open_blog.sh')">open_blog.sh</span>
 <span style="color:aqua; cursor:pointer" onclick="doCommandClick('./activate_agi');">activate_agi</span></span>
 <span id='user_data'></span></pre></b>
 
-<table cellspacing=0 cellpadding=0><tr><td valign=top><b><pre style='color:lime'>$&gt; </pre></b></td><td><input onkeydown='doCommandPress(event)' style='width: 300px;font-weight: bold; color:lime; font-family:monospace; font-size: 12px; border:0px solid black; background-color:black' id='inp'></td></tr></table>
+<table cellspacing=0 cellpadding=0><tr><td valign=top><b><pre style='color:lime'>$&gt; </pre></b></td><td><input onkeydown='doCommandPress(event)' style='width: 300px;font-weight: bold; color:lime; font-family:monospace; font-size: 12px; border:0px solid black; background-color:black; -webkit-tap-highlight-color: rgba(0,0,0,0);' id='inp'></td></tr></table>
 
                 <script>document.getElementById('inp').focus();</script>
 </body></html>
