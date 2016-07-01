@@ -1,0 +1,118 @@
+<html><head>
+
+<script>
+var files = [];
+var urls = [];
+files["about.txt"] = "A new virtual assistant that will replace your home screen";
+files["README.txt"] = "This website will be available soon";
+files["jobs.txt"] = "We are looking for deep learning interns.\nProjects include natural language processing, speech recognition, image processing.\nSend your resumes to <a href='mailto:jobs@xix.ai' style='color:silver'>jobs@xix.ai</a>";
+files["contact.txt"] = "reach@xix.ai\n404 Bryant street, San Francisco, CA";
+
+urls['hackathon.sh'] = 'https://www.eventbrite.com/e/hackathon-recurrent-neural-hacks-tickets-26004061849';
+urls['meetups.sh'] = "http://www.meetup.com/superintelligencemeetup/";
+urls['slack.sh'] = '';
+urls['open_blog.sh'] = '';
+
+var user_datas = [];
+
+function fancyRemove(elem, iters) {
+    if (iters == 0) {
+        document.getElementById("user_data").removeChild(elem);
+    }
+    else {
+        elem.style.opacity = iters / 10;
+        setTimeout(function() { fancyRemove(elem, iters - 1); }, 40);
+    }
+}
+
+function output(str) {
+    var elem = document.createElement("span");
+    elem.innerHTML = str;
+    user_datas.push(elem);
+    document.getElementById("user_data").appendChild(elem);
+    while (user_datas.length > 6) {
+        fancyRemove(user_datas[0], 10);
+        user_datas.shift();
+    }
+}
+function output2(str) {
+    output(str + "\n");
+}
+function doCommand(cmd) {
+    var tokens = cmd.split(' ');
+    if (tokens[0] == 'cat') {
+        if (files[tokens[1]] !== undefined) {
+            output2(files[tokens[1]]);
+        }
+        else {
+            output2("File " + tokens[1] + " doesn't exist");
+        }
+    }
+    else if (cmd == "./activate_agi" || cmd == "sh activate_agi" || cmd == ". activate_agi") {
+        output2("Permission denied");
+    }
+    else if (tokens[0] == '.' || tokens[0] == 'sh' || cmd.length >= 2 && cmd[0] == '.' && cmd[1] == '/') {
+        if (tokens[0].length >= 2 && cmd[0] == '.' && cmd[1] == '/') {
+            tokens[1] = tokens[0].substr(2);
+        }
+        if (urls[tokens[1]] == '') {
+            output2("Coming soon");
+        }
+        else if (urls[tokens[1]] !== undefined) {
+            location.href = urls[tokens[1]];
+        }
+        else {
+            output2("File " + tokens[1] + " doesn't exist");
+        }
+    }
+    else if (tokens[0] == 'apt-get') {
+        output2("Package aptitude is not installed. Run apt-get install aptitude to install it.");
+    }
+    else if (tokens[0] == 'ls') {
+        output2(document.getElementById('ls').innerHTML);
+    }
+    else {
+        output2("Unrecognized command " + tokens[0]);
+    }
+}
+function doCommandClick(cmd) {
+    output("\n$> " + cmd + "\n");
+    doCommand(cmd);
+}
+function doCommandPress(evt) {
+    var elem = document.getElementById('inp');
+    if (13 == evt.keyCode) {
+        doCommandClick(elem.value);
+        elem.value = '';
+        elem.focus();
+    }
+}
+</script>
+
+</head><body color="lime" bgcolor="black"><b><pre id="playground" style="margin-bottom:0px; color:lime">Ubuntu 16.04
+ ___    ___   __   ___    ___
+ \  \  /  /  |  |  \  \  /  /
+  \  \/  /   |  |   \  \/  /
+   \    /    |  |    \    /
+   /    \    |  |    /    \ 
+  /  /\  \   |  |   /  /\  \
+ /__/  \__\  |__|  /__/  \__\
+
+317 updates are available, run apt-get update to install them
+
+You have 0 new messages.
+
+$&gt; cat README.txt
+This website will be available soon
+
+$&gt; ls
+<span id='ls'><span style="color:silver"><span onclick="doCommandClick('cat about.txt');" style="cursor:pointer">about.txt</span>      <span style="color:aqua; cursor:pointer" onclick="doCommandClick('./hackathon.sh');">hackathon.sh</span>   <span style="color:aqua; cursor:pointer" onclick='doCommandClick("./meetup.sh")'>meetups.sh</span>     <span style="cursor:pointer" onclick="doCommandClick('cat contact.txt')">contact.txt</span></span>
+<span style="color:silver"><span style="cursor:pointer" onclick="doCommandClick('cat README.txt')">README.txt</span>     <span style="cursor:pointer" onclick="doCommandClick('cat jobs.txt')">jobs.txt</span>       <span style="cursor:pointer;color:aqua" onclick="doCommandClick('./slack.sh')">slack.sh</span></span>       <span style="cursor: pointer; color:aqua" onclick="doCommandClick('./open_blog.sh')">open_blog.sh</span>
+<span style="color:aqua; cursor:pointer" onclick="doCommandClick('./activate_agi');">activate_agi</span></span>
+<span id='user_data'></span></pre></b>
+
+<table cellspacing=0 cellpadding=0><tr><td valign=top><b><pre style='color:lime'>$&gt; </pre></b></td><td><input onkeydown='doCommandPress(event)' style='width: 300px;font-weight: bold; color:lime; font-family:monospace; font-size: 12px; border:0px solid black; background-color:black' id='inp'></td></tr></table>
+
+                <script>document.getElementById('inp').focus();</script>
+</body></html>
+
