@@ -16,7 +16,7 @@ files["contact.txt"] = "reach@xix.ai\n404 Bryant street, San Francisco, CA";
 
 urls['hackathon.sh'] = 'https://www.eventbrite.com/e/hackathon-recurrent-neural-hacks-tickets-26004061849';
 urls['meetups.sh'] = "http://www.meetup.com/superintelligencemeetup/";
-urls['slack.sh'] = '';
+urls['slack.sh'] = 'https://xixslack.herokuapp.com/';
 urls['open_blog.sh'] = '';
 
 var user_datas = [];
@@ -54,7 +54,7 @@ function doCommand(cmd) {
             output2("File " + tokens[1] + " doesn't exist");
         }
     }
-    else if (cmd == "./activate_agi" || cmd == "sh activate_agi" || cmd == ". activate_agi") {
+    else if (cmd == "./activate_agi" || cmd == "sh activate_agi" || cmd == ". activate_agi" || cmd == "sh ./activate_agi") {
         output2("Permission denied");
     }
     else if (tokens[0] == '.' || tokens[0] == 'sh' || cmd.length >= 2 && cmd[0] == '.' && cmd[1] == '/') {
