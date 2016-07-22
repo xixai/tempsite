@@ -2,6 +2,9 @@
 <title>XIX.ai</title>
 
 <style>
+a {
+    color: silver
+}
 .noFocus:focus {
     outline: none;
 }
@@ -66,7 +69,8 @@ function doCommand(cmd) {
             tokens[1] = tokens[1].substr(2);
         }
         if (urls[tokens[1]] == '') {
-            output2("Coming soon");
+            output2("Launching...");
+            showOne('blog');
         }
         else if (urls[tokens[1]] !== undefined) {
             output2("Launching...");
@@ -100,7 +104,7 @@ function doCommandPress(evt) {
 }
 </script>
 
-</head><body color="lime" bgcolor="black"><b><pre id="playground" style="margin-bottom:0px; color:lime">Ubuntu 16.04
+</head><body style="color:lime; font-family: monospace; font-size: 12px" bgcolor="black"><b><table><tr><td width=740 valign=top><div id='terminal_div'><pre id="playground" style="margin-bottom:0px; color:lime">Ubuntu 16.04
  ___    ___   __   ___    ___
  \  \  /  /  |  |  \  \  /  /
   \  \/  /   |  |   \  \/  /
@@ -116,10 +120,7 @@ You have 0 new messages.
 $&gt; cat README.txt
 This website will be available soon
 
-$&gt; ./andrewng_stream && rm ./andrewng_stream
-<iframe src="https://www.ustream.tv/embed/21695927?html5ui" style="border: 0 none transparent;"  webkitallowfullscreen allowfullscreen frameborder="no" width="720" height="405"></iframe>
-
-$&gt; ls
+$&gt; ls --clickable
 <span id='ls'><span style="color:silver"><span onclick="doCommandClick('cat about.txt');" style="cursor:pointer">about.txt</span>      <span style="color:aqua; cursor:pointer" onclick="doCommandClick('./hackathon.sh');">hackathon.sh</span>   <span style="color:aqua; cursor:pointer" onclick='doCommandClick("./meetups.sh")'>meetups.sh</span>     <span style="cursor:pointer" onclick="doCommandClick('cat contact.txt')">contact.txt</span></span>
 <span style="color:silver"><span style="cursor:pointer" onclick="doCommandClick('cat README.txt')">README.txt</span>     <span style="cursor:pointer" onclick="doCommandClick('cat jobs.txt')">jobs.txt</span>       <span style="cursor:pointer;color:aqua" onclick="doCommandClick('./slack.sh')">slack.sh</span></span>       <span style="cursor: pointer; color:aqua" onclick="doCommandClick('./open_blog.sh')">open_blog.sh</span>
 <span style="color:aqua; cursor:pointer" onclick="doCommandClick('./activate_agi');">activate_agi</span></span>
@@ -128,6 +129,170 @@ $&gt; ls
 
 <table cellspacing=0 cellpadding=0><tr><td valign=top><b><pre style='color:lime'>$&gt; </pre></b></td><td><input class=noFocus onkeydown='doCommandPress(event)' style='width: 300px;font-weight: bold; color:lime; font-family:monospace; font-size: 12px; border:0px solid black; background-color:black; -webkit-tap-highlight-color: rgba(0,0,0,0);' id='inp'></td></tr></table>
 
-                <script>document.getElementById('inp').focus(); document.onclick = function() { document.getElementById('inp').focus(); }</script>
+</div>
+
+<div id='andrewng_div'>
+<iframe src="https://www.ustream.tv/embed/21695927?html5ui" style="border: 0 none transparent;"  webkitallowfullscreen allowfullscreen frameborder="no" width="720" height="405"></iframe>
+</div>
+<div id='blog_div'><div style='font-family:monospace; font-size: 14px' id='blog_content'></div> </div>
+<div id='contact_div'><h1 style='color:lime'>Contact</h1><br>
+    <div style='color:lime'><a href='mailto:reach@xix.ai' style='color:silver'>reach@xix.ai</a><br>
+        404 Bryant street,<br>
+        San Francisco,<br>
+        CA, 94107</div>
+    
+    <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJicN9F3mAhYARlgael3DbGSg&key=AIzaSyDcJDBkKmDOw1sJ5qvGVdff8ZQWUTEFtLc" allowfullscreen></iframe> 
+</div>
+
+                <script>document.getElementById('inp').focus(); document.getElementById('terminal_div').onclick = function() { document.getElementById('inp').focus(); }</script>
+
+</td><td valign=top>
+    <div id='terminal_btn' style='border: 1px solid lime;  border-radius: 5px; cursor: pointer'><pre>  C-1  Terminal  </pre></div>
+    <br>
+    <div id='andrewng_btn' style='border: 1px solid lime;  border-radius: 5px; cursor: pointer'><pre>  C-2  Meetup w/ Andrew Ng  </pre></div>
+    <br>
+    <div id='blog_btn' style='border: 1px solid lime;  border-radius: 5px; cursor: pointer'><pre>  C-3  Blog  </pre></div>
+    <br>
+    <div id='contact_btn' style='border: 1px solid lime;  border-radius: 5px; cursor: pointer'><pre>  C-4  Contact  </pre></div>
+</td></tr></table>
+<div style='display:none' id='blog_1'>
+<big><big>Blog is coming soon</big></big><br>
+Besides building its product, XIX.ai is organizing multiple events in San Francisco around Deep Learning and Artificial intelligence. Two of them just happened in the last seven days, including CEO of NVIDIA Jen-Hsun Huang revealing a new Pascal Titan X graphics card at our meetup with Andrew Ng. Blog posts covering those events are coming soon, with more posts on our research and technology coming later.
+</div>
+
+<div style='display:none' id='blog_2'>
+</div>
+
+<div style='display:none' id='blog_3'>
+</div>
+
+<div style='display:none' id='blog_list'>
+
+    <a href='#' onclick='showPost(document.getElementById("blog_1").innerHTML)'>Blog is coming soon</a><br>
+        <b><font style='font-size:10px'>Posted on 22/7/2016</font></b><br>
+    Besides building its product, XIX.ai is organizing multiple events in San Francisco around Deep Learning and Artificial intelligence. Two of them just happened in the last seven days, including CEO of NVIDIA Jen-Hsun Huang revealing a new Pascal Titan X graphics card at our meetup with Andrew Ng. Blog posts covering those events are coming soon, with more posts on our research and technology coming later.
+    <br>
+
+</div>
+<script>
+    var divs = ["terminal", "andrewng", "blog", "contact"];
+    var inactive_color = [0, 255, 0];
+    var active_color = [255, 255, 255];
+    var bg_color = [0, 0, 0];
+    var a_color = [128, 128, 128];
+    var current_div = 'terminal';
+
+    var hideAll = function() {
+        for (var key in divs) {
+            var div = divs[key];
+            document.getElementById(div + "_div").style.display = 'none';
+            document.getElementById(div + "_btn").style.color = getColor(inactive_color);
+        }
+    }
+
+    var blogShown = false;
+
+    var getHex = function(a) {
+        var a1 = parseInt(a / 16);
+        var a2 = a % 16;
+        var hex = "0123456789ABCDEF";
+        return hex[a1] + hex[a2];
+    }
+
+    var getColor = function(arr) {
+        return '#' + getHex(arr[0]) + getHex(arr[1]) + getHex(arr[2]);
+    }
+
+    var showPost = function(str) {
+        var pos = 0;
+        var accel = 1;
+        document.getElementById('blog_content').innerHTML = str;
+        /*
+        var showBlogStep = function() {
+            document.getElementById('blog_content').innerHTML = str.substring(0, pos);
+            if (pos < str.length) {
+                pos += accel;
+                accel += 1;
+                setTimeout(showBlogStep, 50);
+            }
+        }
+        showBlogStep();*/
+    }
+
+    var showBlog = function() {
+        document.getElementById('blog_content').innerHTML = document.getElementById('blog_list').innerHTML;
+    }
+
+    var showOne = function(div) {
+        hideAll();
+        document.getElementById(div + "_div").style.display = '';
+        document.getElementById(div + "_btn").style.color = getColor(active_color);
+
+        var old_div = current_div;
+        current_div = div;
+        if (div == 'blog' && old_div != 'blog') {
+            setStyle([0, 0, 0], [128, 128, 128], [255, 255, 255], [255, 0, 0]);
+            showBlog();
+        }
+        else if (old_div == 'blog' && div != 'blog') {
+            setStyle([0, 255, 0], [255, 255, 255], [0, 0, 0], [128, 128, 128]);
+        }
+    }
+    showOne('terminal');
+
+    var setStyleInternal = function(inactive, active, bg, a) {
+        var as = document.getElementsByTagName('a');
+        for (var i = 0; i < as.length; ++ i) {
+            as[i].style.color = getColor(a);
+        }
+        inactive_color = inactive;
+        active_color = active;
+        bg_color = bg;
+        a_color = a;
+        document.body.style.backgroundColor = getColor(bg);
+        document.body.style.color = getColor(inactive_color);
+        for (var key in divs) {
+            document.getElementById(divs[key] + "_btn").style.border = '1px solid ' + getColor(inactive_color);
+        }
+        showOne(current_div);
+    }
+
+    var setStyle = function(inactive, active, bg, a) {
+        var old_inactive = inactive_color;
+        var old_active = active_color;
+        var old_bg = bg_color;
+        var old_a = a_color;
+
+        var state = 0;
+        var interpolate = function(a, b, state) {
+            var p = state / 100.0;
+            var q = 1 - p;
+            return [parseInt(a[0] * q + b[0] * p), parseInt(a[1] * q + b[1] * p), parseInt(a[2] * q + b[2] * p)];
+        }
+        var f = function() {
+            window.requestAnimationFrame(function() {
+                setStyleInternal(interpolate(old_inactive, inactive, state), interpolate(old_active, active, state), interpolate(old_bg, bg, state), interpolate(old_a, a, state));
+            });
+
+            if (state < 100) {
+                state += 20;
+                setTimeout(f, 50);
+            }
+        }
+        f();
+    }
+
+    for (var key in divs) {
+        var div = divs[key];
+        document.getElementById(div + "_btn").onclick = (function(div){ return function() { showOne(div); } })(div);
+    }
+
+    document.onkeydown = function(evt) {
+        if (evt.ctrlKey && evt.keyCode >= 49 && evt.keyCode < 49 + divs.length) {
+            showOne(divs[evt.keyCode - 49]);
+        }
+    }
+
+</script>
 </body></html>
 
