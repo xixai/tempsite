@@ -1,0 +1,347 @@
+
+<html><head>
+<title>XIX.ai</title>
+
+<style>
+a {
+    color: silver
+}
+.noFocus:focus {
+    outline: none;
+}
+</style>
+
+<script>
+var files = [];
+var urls = [];
+files["about.txt"] = "Using latest advances in deep learning to build a next-generation mobile AI OS for augmenting human intelligence";
+files["README.txt"] = "This website will be available soon";
+files["jobs.txt"] = "We are looking for deep learning interns.\nProjects include natural language processing, speech recognition, image processing.\nSend your resumes to <a href='mailto:jobs@xix.ai' style='color:silver'>jobs@xix.ai</a>";
+files["contact.txt"] = "reach@xix.ai\n404 Bryant street, San Francisco, CA";
+
+files["hackathon.txt"] = "The next hackathon to be announced soon";
+urls['meetups.sh'] = "http://www.meetup.com/superintelligencemeetup/";
+urls['slack.sh'] = 'https://xixslack.herokuapp.com/';
+urls['open_blog.sh'] = '';
+
+var user_datas = [];
+
+function fancyRemove(elem, iters) {
+    if (iters == 0) {
+        document.getElementById("user_data").removeChild(elem);
+    }
+    else {
+        elem.style.opacity = iters / 10;
+        setTimeout(function() { fancyRemove(elem, iters - 1); }, 40);
+    }
+}
+
+function output(str) {
+    var elem = document.createElement("span");
+    elem.innerHTML = str;
+    user_datas.push(elem);
+    document.getElementById("user_data").appendChild(elem);
+    while (user_datas.length > 6) {
+        fancyRemove(user_datas[0], 10);
+        user_datas.shift();
+    }
+}
+function output2(str) {
+    output(str + "\n");
+}
+function doCommand(cmd) {
+    var tokens = cmd.split(' ');
+    if (tokens[0] == 'cat') {
+        if (tokens[1].substr(0, 2) == "./") {
+            tokens[1] = tokens[1].substr(2);
+        }
+        if (files[tokens[1]] !== undefined) {
+            output2(files[tokens[1]]);
+        }
+        else if (urls[tokens[1]] !== undefined) {
+            if (urls[tokens[1]] != '') {
+                output2("# Use `sh " + tokens[1] + "` to execute this script\n${DEFAULT_BROWSER} " + urls[tokens[1]]);
+            }
+            else {
+                output2("# Use `sh " + tokens[1] + "` to execute this script\n${DEFAULT_BROWSER} http://xix.ai/#blog");
+            }
+        }
+        else if (tokens[1] == "activate_agi") {
+            output2("Permission denied");
+        }
+        else {
+            output2("File " + tokens[1] + " doesn't exist");
+        }
+    }
+    else if (cmd == "./activate_agi" || cmd == "sh activate_agi" || cmd == ". activate_agi" || cmd == "sh ./activate_agi") {
+        output2("Permission denied");
+    }
+    else if (tokens[0] == '.' || tokens[0] == 'sh' || tokens[0] == "source" || tokens[0] == "bash" || cmd.length >= 2 && cmd[0] == '.' && cmd[1] == '/') {
+        if (tokens[0].length >= 2 && cmd[0] == '.' && cmd[1] == '/') {
+            tokens[1] = tokens[0].substr(2);
+        }
+        if (tokens[1].length >= 2 && tokens[1][0] == '.' && tokens[1][1] == '/') {
+            tokens[1] = tokens[1].substr(2);
+        }
+        if (urls[tokens[1]] == '') {
+            output2("Launching...");
+            showOne('blog');
+        }
+        else if (urls[tokens[1]] !== undefined) {
+            output2("Launching...");
+            location.href = urls[tokens[1]];
+        }
+        else {
+            output2("File " + tokens[1] + " doesn't exist");
+        }
+    }
+    else if (tokens[0] == 'apt-get') {
+        output2("Package aptitude is not installed. Run apt-get install aptitude to install it.");
+    }
+    else if (tokens[0] == 'ls') {
+        output2(document.getElementById('ls').innerHTML);
+    }
+    else {
+        output2("Unrecognized command " + tokens[0]);
+    }
+}
+function doCommandClick(cmd) {
+    output("\n$> " + cmd + "\n");
+    doCommand(cmd);
+}
+function doCommandPress(evt) {
+    var elem = document.getElementById('inp');
+    if (13 == evt.keyCode) {
+        doCommandClick(elem.value);
+        elem.value = '';
+        elem.focus();
+    }
+}
+</script>
+
+</head><body style="color:lime; font-family: monospace; font-size: 12px" bgcolor="black"><b><table><tr><td width=740 valign=top><div id='terminal_div'><pre id="playground" style="margin-bottom:0px; color:lime">Ubuntu 16.04
+ ___    ___   __   ___    ___
+ \  \  /  /  |  |  \  \  /  /
+  \  \/  /   |  |   \  \/  /
+   \    /    |  |    \    /
+   /    \    |  |    /    \ 
+  /  /\  \   |  |   /  /\  \
+ /__/  \__\  |__|  /__/  \__\
+
+317 updates are available, run apt-get update to install them
+
+You have 0 new messages.
+
+$&gt; cat README.txt
+This website will be available soon
+
+$&gt; ls --clickable
+<span id='ls'><span style="color:silver"><span onclick="doCommandClick('cat about.txt');" style="cursor:pointer">about.txt</span>      <span style="color:aqua; cursor:pointer" onclick="doCommandClick('cat hackathon.txt');">hackathon.txt</span>   <span style="color:aqua; cursor:pointer" onclick='doCommandClick("./meetups.sh")'>meetups.sh</span>     <span style="cursor:pointer" onclick="doCommandClick('cat contact.txt')">contact.txt</span></span>
+<span style="color:silver"><span style="cursor:pointer" onclick="doCommandClick('cat README.txt')">README.txt</span>     <span style="cursor:pointer" onclick="doCommandClick('cat jobs.txt')">jobs.txt</span>       <span style="cursor:pointer;color:aqua" onclick="doCommandClick('./slack.sh')">slack.sh</span></span>       <span style="cursor: pointer; color:aqua" onclick="doCommandClick('./open_blog.sh')">open_blog.sh</span>
+<span style="color:aqua; cursor:pointer" onclick="doCommandClick('./activate_agi');">activate_agi</span></span>
+<span id='user_data'></span>
+</pre></b>
+
+<table cellspacing=0 cellpadding=0><tr><td valign=top><b><pre style='color:lime'>$&gt; </pre></b></td><td><input class=noFocus onkeydown='doCommandPress(event)' style='width: 300px;font-weight: bold; color:lime; font-family:monospace; font-size: 12px; border:0px solid black; background-color:black; -webkit-tap-highlight-color: rgba(0,0,0,0);' id='inp'></td></tr></table>
+
+</div>
+
+<div id='andrewng_div'>
+<iframe src="https://www.ustream.tv/embed/21695927?html5ui" style="border: 0 none transparent;"  webkitallowfullscreen allowfullscreen frameborder="no" width="720" height="405"></iframe>
+</div>
+<div id='blog_div'><div style='font-family:monospace; font-size: 14px' id='blog_content'></div> </div>
+<div id='contact_div'><h1 style='color:lime'>Contact</h1><br>
+    <div style='color:lime'><a href='mailto:reach@xix.ai' style='color:silver'>reach@xix.ai</a><br>
+        404 Bryant street,<br>
+        San Francisco,<br>
+        CA, 94107</div>
+    
+    <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJicN9F3mAhYARlgael3DbGSg&key=AIzaSyDcJDBkKmDOw1sJ5qvGVdff8ZQWUTEFtLc" allowfullscreen></iframe> 
+</div>
+
+                <script>document.getElementById('inp').focus(); document.getElementById('terminal_div').onclick = function() { document.getElementById('inp').focus(); }</script>
+
+</td><td valign=top>
+    <div id='terminal_btn' style='border: 1px solid lime;  border-radius: 5px; cursor: pointer'><pre>  C-1  Terminal  </pre></div>
+    <br>
+    <div id='andrewng_btn' style='border: 1px solid lime;  border-radius: 5px; cursor: pointer'><pre>  C-2  Meetup w/ Andrew Ng  </pre></div>
+    <br>
+    <div id='blog_btn' style='border: 1px solid lime;  border-radius: 5px; cursor: pointer'><pre>  C-3  Blog  </pre></div>
+    <br>
+    <div id='contact_btn' style='border: 1px solid lime;  border-radius: 5px; cursor: pointer'><pre>  C-4  Contact  </pre></div>
+</td></tr></table>
+<div style='display:none' id='blog_1'>
+<big><big>Blog is coming soon</big></big><br>
+Besides building its product, XIX.ai is organizing multiple events in San Francisco around Deep Learning and Artificial intelligence. Two of them just happened in the last seven days, including CEO of NVIDIA Jen-Hsun Huang revealing a new Pascal Titan X graphics card at our meetup with Andrew Ng. Blog posts covering those events are coming soon, with more posts on our research and technology coming later.
+</div>
+
+<div style='display:none' id='blog_2'>
+</div>
+
+<div style='display:none' id='blog_3'>
+</div>
+
+<div style='display:none' id='blog_list'>
+
+    <a href='https://medium.com/@emilmikhailov/on-july-21st-we-made-history-d656bbda6273'>AI meetup with Andrew Ng and Jen-Hsun Huang</a><br>
+        <b><font style='font-size:10px'>Posted on 25/7/2016 by Emil Mikhailov</font></b><br>
+    A short report on our meetup with Andrew Ng. Jen-Hsun Huang crashed the meetup, took over the stage and did something nobody expected to happen--presented a brand new Titan X: The Ultimate to the public.
+    <br><br>
+
+    <a href='#' onclick='showPost(document.getElementById("blog_1").innerHTML)'>Blog is coming soon</a><br>
+        <b><font style='font-size:10px'>Posted on 22/7/2016 by Alex Skidanov</font></b><br>
+    Besides building its product, XIX.ai is organizing multiple events in San Francisco around Deep Learning and Artificial intelligence. Two of them just happened in the last seven days, including CEO of NVIDIA Jen-Hsun Huang revealing a new Pascal Titan X graphics card at our meetup with Andrew Ng. Blog posts covering those events are coming soon, with more posts on our research and technology coming later.
+    <br>
+
+</div>
+<script>
+    var divs = ["terminal", "andrewng", "blog", "contact"];
+    var inactive_color = [0, 255, 0];
+    var active_color = [255, 255, 255];
+    var bg_color = [0, 0, 0];
+    var a_color = [128, 128, 128];
+    var current_div = 'terminal';
+
+    var hideAll = function() {
+        for (var key in divs) {
+            var div = divs[key];
+            document.getElementById(div + "_div").style.display = 'none';
+            document.getElementById(div + "_btn").style.color = getColor(inactive_color);
+        }
+    }
+
+    var blogShown = false;
+
+    var getHex = function(a) {
+        var a1 = parseInt(a / 16);
+        var a2 = a % 16;
+        var hex = "0123456789ABCDEF";
+        return hex[a1] + hex[a2];
+    }
+
+    var getColor = function(arr) {
+        return '#' + getHex(arr[0]) + getHex(arr[1]) + getHex(arr[2]);
+    }
+
+    var showPost = function(str) {
+        var pos = 0;
+        var accel = 1;
+        document.getElementById('blog_content').innerHTML = str;
+        /*
+        var showBlogStep = function() {
+            document.getElementById('blog_content').innerHTML = str.substring(0, pos);
+            if (pos < str.length) {
+                pos += accel;
+                accel += 1;
+                setTimeout(showBlogStep, 50);
+            }
+        }
+        showBlogStep();*/
+    }
+
+    var showBlog = function() {
+        document.getElementById('blog_content').innerHTML = document.getElementById('blog_list').innerHTML;
+    }
+
+    function removeHash () { 
+        var scrollV, scrollH, loc = window.location;
+        if ("pushState" in history)
+            history.pushState("", document.title, loc.pathname + loc.search);
+        else {
+            loc.hash = "";
+        }
+    }
+
+    var showOne = function(div) {
+        hideAll();
+        document.getElementById(div + "_div").style.display = '';
+        document.getElementById(div + "_btn").style.color = getColor(active_color);
+
+        var old_div = current_div;
+        current_div = div;
+        if (div == 'blog' && old_div != 'blog') {
+            setStyle([0, 0, 0], [128, 128, 128], [255, 255, 255], [255, 0, 0]);
+            showBlog();
+        }
+        else if (old_div == 'blog' && div != 'blog') {
+            setStyle([0, 255, 0], [255, 255, 255], [0, 0, 0], [128, 128, 128]);
+        }
+
+        if (div != 'terminal') {
+            location.hash = div;
+        }
+        else {
+            removeHash();
+        }
+    }
+
+    var setStyleInternal = function(inactive, active, bg, a) {
+        var as = document.getElementsByTagName('a');
+        for (var i = 0; i < as.length; ++ i) {
+            as[i].style.color = getColor(a);
+        }
+        inactive_color = inactive;
+        active_color = active;
+        bg_color = bg;
+        a_color = a;
+        document.body.style.backgroundColor = getColor(bg);
+        document.body.style.color = getColor(inactive_color);
+        for (var key in divs) {
+            document.getElementById(divs[key] + "_btn").style.border = '1px solid ' + getColor(inactive_color);
+        }
+        showOne(current_div);
+    }
+
+    var setStyle = function(inactive, active, bg, a) {
+        var old_inactive = inactive_color;
+        var old_active = active_color;
+        var old_bg = bg_color;
+        var old_a = a_color;
+
+        var state = 0;
+        var interpolate = function(a, b, state) {
+            var p = state / 100.0;
+            var q = 1 - p;
+            return [parseInt(a[0] * q + b[0] * p), parseInt(a[1] * q + b[1] * p), parseInt(a[2] * q + b[2] * p)];
+        }
+        var f = function() {
+            window.requestAnimationFrame(function() {
+                setStyleInternal(interpolate(old_inactive, inactive, state), interpolate(old_active, active, state), interpolate(old_bg, bg, state), interpolate(old_a, a, state));
+            });
+
+            if (state < 100) {
+                state += 20;
+                setTimeout(f, 50);
+            }
+        }
+        f();
+    }
+
+    for (var key in divs) {
+        var div = divs[key];
+        document.getElementById(div + "_btn").onclick = (function(div){ return function() { showOne(div); } })(div);
+    }
+
+    document.onkeydown = function(evt) {
+        if (evt.ctrlKey && evt.keyCode >= 49 && evt.keyCode < 49 + divs.length) {
+            showOne(divs[evt.keyCode - 49]);
+        }
+    }
+
+    var shown = false;
+    if (window.location.hash) {
+        for (var dv in divs) {
+            if ('#' + divs[dv] == window.location.hash) {
+                showOne(divs[dv]);
+                shown = true;
+                break;
+            }
+        }
+    }
+    if (!shown) {
+        showOne('terminal');
+    }
+
+</script>
+</body></html>
+
