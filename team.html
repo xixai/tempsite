@@ -42,6 +42,20 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="static/img/ms-icon-144x144.png">
 	<meta name="theme-color" content="#000000">
+	<style type="text/css">
+		.people {
+			
+		}
+		.people img {
+			height: 75px;
+			float: left;
+			margin: .5rem .6rem .6rem 0;
+		}
+		.people figcaption {
+			margin: 0 0 0 101px;
+			min-height: 95px;
+		}
+	</style>
 </head>
 
 <body class="external homepage">
@@ -49,7 +63,7 @@
 <header class="header nav-wrapper headroom--top ">
   <nav class="nav mobile-menu">
     <div class="logo">
-      <a href="/"><img src="static/img/logo.png" width="100px" alt="XIX.ai"/></a>
+      <a href="/"><img src="static/img/logo.png" style="width: 100px" alt="XIX.ai"/></a>
     </div>
     <div class="hamburger" id="toggle">
       <span class="bar"></span>
@@ -65,31 +79,31 @@
   </nav>
 </header>
 
-
   <section class="main">
-    <div class="content" style="max-width: 52rem">
+    <div class="content">
       <div>
   <h1>Our founding team</h1>
-  <ul style="list-style-type: none; text-align:center">
-      <li style="float: left; padding-right: 10px">
-        <div style="overflow:hidden;height:230px"><img width="250px" src="static/img/emil.jpeg"></div>
-        <span>Emil Mikhailov, CEO</span>
-      </li>
-      <li style="float: left; padding-right: 10px">
-        <div style="overflow:hidden;height:230px"><img width="250" src="static/img/alex.png"></div>
-        <span>Alex Skidanov, CTO</span>
-      </li>
-      <li style="float: left">
-        <div style="overflow:hidden;height:230px"><img width="250" src="static/img/illia.png"></div>
-        <span>Illia Polosukhin, CRO</span>
-      </li>
-  </ul>
+  <article class="people">
+    <figure>
+       <img src="static/img/emil.png">
+       <figcaption><strong>Emil Mikhailov</strong>, CEO and Co-Founder</figcaption>
+    </figure>
+    <figure>
+       <img src="static/img/alex.png">
+       <figcaption><strong>Alex Skidanov</strong>, CTO and Co-Founder</figcaption>
+    </figure>
+    <figure>
+       <img src="static/img/illia.png">
+       <figcaption><strong>Illia Polosukhin</strong>, CRO and Co-Founder</figcaption>
+    </figure>
+
+  </article>
   </section>
   
     <footer class="footer">
   <div class="container">
     <nav>
-      <a href="/"><img src="static/img/logo.png" width="100px" alt="XIX.ai"/></a>
+      <a href="/"><img src="static/img/logo.png" style="width: 50px" alt="XIX.ai"/></a>
       <ul class="links">
         <li><a href="/terms">Terms of service</a></li>
       </ul>
